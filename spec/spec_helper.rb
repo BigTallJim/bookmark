@@ -4,6 +4,7 @@ require 'simplecov-console'
 require 'rspec'
 # require 'features/web_helpers'
 ENV['RACK_ENV'] = 'test'
+ENV['ENVIRONMENT'] = 'test'
 # require our Sinatra app file
 require File.join(File.dirname(__FILE__), '..', 'app.rb')
 # require '../app.rb'
