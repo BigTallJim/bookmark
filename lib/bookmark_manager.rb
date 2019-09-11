@@ -1,4 +1,5 @@
 require 'pg'
+require_relative './bookmark'
 
 class Bookmark_Manager
   def return_bookmarks
@@ -8,12 +9,11 @@ class Bookmark_Manager
       con = PG.connect :dbname => 'bookmark_manager', :user => 'student'
     end
 
-    rs = con.exec 'SELECT title, url from bookmarks'
+    rs = con.exec 'SELECT id, title, url from bookmarks order by title'
     bookmarks = []
     begin
       rs.each do |row|
-        newHash = {:title => row["title"], :url => row["url"]}
-        bookmarks << newHash
+        bookmarks << Bookmark.new(id: row["id"], title: row["title"], url: row["url"])
       end
     rescue PG::Error => e
       puts e.message

@@ -7,10 +7,10 @@
           <th>Title</th>
           <th>URL</th>
         </tr>
-        <% @bookmarks.each do |hash| %>
+        <% @bookmarks.each do |bookmark| %>
         <tr>
-          <td> <%= hash[:title] %></td>
-          <td> <%= hash[:url] %> </td>
+          <td> <%= bookmark.title %></td>
+          <td> <a href="<%= bookmark.url %>"><%= bookmark.url%></a> </td>
         </tr>
         <% end %>
       </table>
