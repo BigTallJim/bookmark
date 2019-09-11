@@ -1,1 +1,8 @@
-<li> <%= @bookmarks.join("<li>") %> 
+
+
+
+  <form action='/createbookmark'>
+    <li> <%= @bookmarks.join("<li>") %>
+      </br>
+    <input type='submit' value='Create Bookmark'>
+  </form>
