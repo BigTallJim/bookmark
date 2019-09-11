@@ -21,5 +21,4 @@ feature 'Bookmark features' do
     expect(page).to have_content('http://gmail.com')
     expect(page).to have_content('James')
   end
-
 end

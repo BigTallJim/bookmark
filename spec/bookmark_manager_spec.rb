@@ -14,4 +14,11 @@ describe Bookmark_Manager do
     expect(subject.return_bookmarks().first.url).to eq("https://James.Is.Great.com")
     expect(subject.return_bookmarks().first.title).to eq("James Holton")
   end
+
+  it "deletes a bookmark" do
+    Bookmark_Helper.new.clear_table
+    bookmark = subject.add_bookmark("https://James.Is.Great.com", "James Holton")
+    subject.delete_bookmark(bookmark.id)
+    expect(subject.return_bookmarks).to be_empty
+  end
 end

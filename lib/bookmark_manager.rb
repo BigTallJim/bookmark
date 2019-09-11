@@ -4,9 +4,9 @@ require_relative './bookmark'
 class Bookmark_Manager
   def return_bookmarks
     if ENV['ENVIRONMENT'] == 'test'
-      con = PG.connect :dbname => 'bookmark_manager_test', :user => 'student'
+      con = PG.connect :dbname => 'bookmark_manager_test'
     else
-      con = PG.connect :dbname => 'bookmark_manager', :user => 'student'
+      con = PG.connect :dbname => 'bookmark_manager'
     end
 
     rs = con.exec 'SELECT id, title, url from bookmarks order by title'
@@ -26,12 +26,32 @@ class Bookmark_Manager
 
   def add_bookmark(bookmark, title = "default")
     if ENV['ENVIRONMENT'] == 'test'
-      con = PG.connect :dbname => 'bookmark_manager_test', :user => 'student'
+      con = PG.connect :dbname => 'bookmark_manager_test'
     else
-      con = PG.connect :dbname => 'bookmark_manager', :user => 'student'
+      con = PG.connect :dbname => 'bookmark_manager'
     end
 
-    rs = con.exec "INSERT INTO bookmarks (title, url) VALUES('#{title}','#{bookmark}')"
+    rs = con.exec "INSERT INTO bookmarks (title, url) VALUES('#{title}','#{bookmark}') RETURNING id, title, url;"
+    bookmark = Bookmark.new(id: rs[0]['id'], title: rs[0]['title'], url: rs[0]['url'])
+
+    begin
+    rescue PG::Error => e
+      puts e.message
+    ensure
+      rs.clear if rs
+      con.close if con
+    end
+    bookmark
+  end
+
+  def delete_bookmark(id)
+    if ENV['ENVIRONMENT'] == 'test'
+      con = PG.connect :dbname => 'bookmark_manager_test'
+    else
+      con = PG.connect :dbname => 'bookmark_manager'
+    end
+
+    rs = con.exec "DELETE FROM bookmarks WHERE id = '#{id}'"
 
     begin
     rescue PG::Error => e
@@ -41,4 +61,5 @@ class Bookmark_Manager
       con.close if con
     end
   end
+
 end
