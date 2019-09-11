@@ -19,8 +19,9 @@ class Bookmark < Sinatra::Base
 
   post '/createbookmark' do
     newurl = params[:newurl]
+    title = params[:title]
     bookmark_manager = Bookmark_Manager.new
-    bookmark_manager.add_bookmark(newurl)
+    bookmark_manager.add_bookmark(newurl, title)
     @return_value_for_screen = 'url added successfully'
     redirect '/bookmarks'
   end

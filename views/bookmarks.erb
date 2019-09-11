@@ -2,7 +2,17 @@
 
 
   <form action='/createbookmark'>
-    <li> <%= @bookmarks.join("<li>") %>
-      </br>
+      <table>
+        <tr>
+          <th>Title</th>
+          <th>URL</th>
+        </tr>
+        <% @bookmarks.each do |hash| %>
+        <tr>
+          <td> <%= hash[:title] %></td>
+          <td> <%= hash[:url] %> </td>
+        </tr>
+        <% end %>
+      </table>
     <input type='submit' value='Create Bookmark'>
   </form>
