@@ -1,26 +1,29 @@
-
+<html>
 <style>
-table, th, td {
-  border: 1px solid black;
-  border-collapse: collapse;
-  background-color: #ffdab9;
-}
+  table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+    background-color: #ffdab9;
+  }
 </style>
 
+<h1> List of Bookmarks </h1>
+<h2><%=@screen_message%></h2>
 
-  <form action='/createbookmark'>
-      <table border="1" >
-        <tr>
-          <th>Title</th>
-          <th>URL</th>
-        </tr>
-        <% @bookmarks.each do |bookmark| %>
-        <tr>
-          <td> <%= bookmark.title %></td>
-          <td> <a href="<%= bookmark.url %>"><%= bookmark.url%></a> </td>
-        </tr>
-        <% end %>
-      </table>
-    </br>
-    <input type='submit' value='Create Bookmark'>
-  </form>
+<form action='/createbookmark'>
+  <table border="1" >
+    <tr>
+      <th>Title</th>
+      <th>URL</th>
+    </tr>
+    <% @bookmarks.each do |bookmark| %>
+    <tr>
+      <td> <%= bookmark.title %></td>
+      <td> <a href="<%= bookmark.url %>"><%= bookmark.url%></a> </td>
+    </tr>
+    <% end %>
+  </table>
+</br>
+<input type='submit' value='Create Bookmark'>
+</form>
+</html>
