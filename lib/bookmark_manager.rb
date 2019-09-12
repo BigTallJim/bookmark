@@ -52,4 +52,11 @@ class Bookmark_Manager
       con = PG.connect :dbname => 'bookmark_manager'
     end
   end
+
+  def is_valid_url(url)
+    uri = URI.parse url
+    uri.kind_of? URI::HTTP
+  rescue URI::InvalidURIError
+    false
+  end
 end

@@ -20,11 +20,11 @@ class Bookmark_app < Sinatra::Base
   post '/bookmarks' do
     newurl = params[:newurl]
     title = params[:title]
-    if newurl.length > 0
+    if newurl.length > 0 && is_valid_url(newurl)
       Bookmark_Manager.add_bookmark(newurl, title)
       message = "Bookmark added successfully"
     else
-      message = "No Bookmark entered"
+      message = "No Bookmark entered, and blank or invalid"
     end
     redirect "/bookmarks?message=#{message}"
   end
@@ -33,5 +33,12 @@ class Bookmark_app < Sinatra::Base
     Bookmark_Manager.delete_bookmark(params["DeleteURL"])
     message = "Bookmark deleted"
     redirect "/bookmarks?message=#{message}"
+  end
+
+  def is_valid_url(url)
+    uri = URI.parse url
+    uri.kind_of? URI::HTTP
+  rescue URI::InvalidURIError
+    false
   end
 end
