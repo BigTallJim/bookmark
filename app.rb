@@ -13,7 +13,6 @@ class Bookmark_app < Sinatra::Base
   end
 
   get '/bookmarks/new' do
-    @return_value_for_screen = 'enter your url'
     erb :createbookmark
   end
 
@@ -41,7 +40,6 @@ class Bookmark_app < Sinatra::Base
   end
 
   post '/updatebookmark' do
-    p params
     id = params[:id]
     url = params[:url]
     title = params[:title]
