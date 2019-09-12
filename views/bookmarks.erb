@@ -10,20 +10,25 @@
 <h1> List of Bookmarks </h1>
 <h2><%=@screen_message%></h2>
 
-<form action='/createbookmark'>
+<form action='/deletebookmark' method='post'>
   <table border="1" >
     <tr>
       <th>Title</th>
       <th>URL</th>
+      <th>Delete?</th>
     </tr>
     <% @bookmarks.each do |bookmark| %>
     <tr>
       <td> <%= bookmark.title %></td>
       <td> <a href="<%= bookmark.url %>"><%= bookmark.url%></a> </td>
+      <td> <button type='submit' value='<%= bookmark.id%>' name='DeleteURL'>Delete</button>
     </tr>
     <% end %>
   </table>
+</form>
 </br>
-<input type='submit' value='Create Bookmark'>
+
+<form action='/bookmarks/new'>
+  <input type='submit' value='Create Bookmark'>
 </form>
 </html>

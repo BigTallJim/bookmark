@@ -2,7 +2,7 @@ require 'pg'
 require_relative './bookmark'
 
 class Bookmark_Manager
-  def return_bookmarks
+  def self.return_bookmarks
     bookmarks = []
     begin
       con = get_database_connection
@@ -19,7 +19,7 @@ class Bookmark_Manager
     bookmarks
   end
 
-  def add_bookmark(bookmark, title = "default")
+  def self.add_bookmark(bookmark, title = "default")
     begin
       con = get_database_connection
       rs = con.exec "INSERT INTO bookmarks (title, url) VALUES('#{title}','#{bookmark}') RETURNING id, title, url;"
@@ -32,7 +32,7 @@ class Bookmark_Manager
     end
   end
 
-  def delete_bookmark(id)
+  def self.delete_bookmark(id)
     begin
       con = get_database_connection
       rs = con.exec "DELETE FROM bookmarks WHERE id = '#{id}'"
@@ -45,7 +45,7 @@ class Bookmark_Manager
   end
 
   private
-  def get_database_connection
+  def self.get_database_connection
     if ENV['ENVIRONMENT'] == 'test'
       con = PG.connect :dbname => 'bookmark_manager_test'
     else
