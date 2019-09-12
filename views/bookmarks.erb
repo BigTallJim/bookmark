@@ -9,23 +9,26 @@
 
 <h1> List of Bookmarks </h1>
 <h2 style='color:Tomato;'><%=@screen_message%></h2>
-
-<form action='/deletebookmark' method='post'>
   <table border="1" >
     <tr>
       <th>Title</th>
       <th>URL</th>
-      <th>Delete?</th>
+      <th>Delete</th>
+      <th>Update</th>
     </tr>
     <% @bookmarks.each do |bookmark| %>
     <tr>
       <td> <%= bookmark.title %></td>
       <td> <a href="<%= bookmark.url %>"><%= bookmark.url%></a> </td>
-      <td> <button type='submit' value='<%= bookmark.id%>' name='DeleteURL'>Delete</button>
+      <form action='/deletebookmark' method='post'>
+        <td> <button type='submit' value='<%= bookmark.id%>' name='DeleteURL'>Delete</button>
+      </form>
+      <form action='/updatebookmark' method='get'>
+        <td> <button type='submit' value='<%= bookmark.id%>' name='UpdateURL'>Update</button>
+      </form>
     </tr>
     <% end %>
   </table>
-</form>
 </br>
 
 <form action='/bookmarks/new'>

@@ -34,4 +34,21 @@ feature 'Bookmark features' do
     expect(page).to have_content("Bookmark deleted")
     expect(page).to have_no_content('http://gmail.com')
   end
+
+  scenario 'update bookmarks' do
+    Bookmark_Helper.new.clear_table
+    visit '/bookmarks/new'
+    fill_in('newurl',with: 'http://gmail.com')
+    fill_in('title',with: 'James')
+    click_button('Save')
+    expect(page).to have_content('http://gmail.com')
+    expect(page).to have_content('Bookmark added successfully')
+    click_button('Update')
+    fill_in('url',with: 'http://update.gmail.com')
+    fill_in('title',with: 'James updated')
+    click_button('Save')
+    expect(page).to have_content('http://update.gmail.com')
+    expect(page).to have_content('James updated')
+    expect(page).to have_no_content('http://gmail.com')
+  end
 end

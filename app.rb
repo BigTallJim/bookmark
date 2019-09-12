@@ -24,7 +24,7 @@ class Bookmark_app < Sinatra::Base
       Bookmark_Manager.add_bookmark(newurl, title)
       message = "Bookmark added successfully"
     else
-      message = "No Bookmark entered, and blank or invalid"
+      message = "No Bookmark entered, either blank or invalid"
     end
     redirect "/bookmarks?message=#{message}"
   end
@@ -32,6 +32,22 @@ class Bookmark_app < Sinatra::Base
   post '/deletebookmark' do
     Bookmark_Manager.delete_bookmark(params["DeleteURL"])
     message = "Bookmark deleted"
+    redirect "/bookmarks?message=#{message}"
+  end
+
+  get '/updatebookmark' do
+    @bookmark = Bookmark_Manager.get_bookmark(params["UpdateURL"])
+    erb :updatebookmark
+  end
+
+  post '/updatebookmark' do
+    p params
+    id = params[:id]
+    url = params[:url]
+    title = params[:title]
+    bookmark = Bookmark.new(id: id, url: url, title: title)
+    Bookmark_Manager.update_bookmark(bookmark)
+    message = "Bookmark updated"
     redirect "/bookmarks?message=#{message}"
   end
 

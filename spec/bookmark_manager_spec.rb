@@ -21,4 +21,17 @@ describe Bookmark_Manager do
     Bookmark_Manager.delete_bookmark(bookmark.id)
     expect(Bookmark_Manager.return_bookmarks).to be_empty
   end
+
+  it "returns a bookmark" do
+    Bookmark_Helper.new.clear_table
+    bookmark = Bookmark_Manager.add_bookmark("https://James.Is.Great.com", "James Holton")
+    expect(Bookmark_Manager.get_bookmark(bookmark.id).url).to eq("https://James.Is.Great.com")
+  end
+
+  it "updates a bookmark" do
+    Bookmark_Helper.new.clear_table
+    bookmark = Bookmark_Manager.add_bookmark("https://James.Is.Great.com", "James Holton")
+    bookmark.title = "new title"
+    expect(Bookmark_Manager.update_bookmark(bookmark).title).to eq("new title")
+  end
 end
