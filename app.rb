@@ -1,7 +1,9 @@
 require 'sinatra/base'
 require './lib/bookmark_manager'
+require './lib/database_connection_setup'
 
 class Bookmark_app < Sinatra::Base
+
   get '/' do
     erb :index
   end
