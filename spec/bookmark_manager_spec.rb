@@ -48,4 +48,11 @@ describe Bookmark_Manager do
     comment = Bookmark_Manager.add_comment(bookmark.id, "What a great bookmark")
     expect(Bookmark_Manager.return_comments(bookmark.id).first.comment).to eq("What a great bookmark")
   end
+
+  it "returns a list of bookmarks and comments" do
+    Bookmark_Helper.new.clear_table
+    Bookmark_Helper.new.load_table
+    expect(Bookmark_Manager.return_bookmarks_and_comments()[0][0].url).to eq("http://www.makersacademy.com")
+    expect(Bookmark_Manager.return_bookmarks_and_comments()[0][1][0].comment).to eq("comment1")
+  end
 end

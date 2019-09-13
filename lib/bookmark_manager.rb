@@ -39,10 +39,21 @@ class Bookmark_Manager
 
   def self.return_comments(bookmark_id)
     comments = []
-      rs = DatabaseConnection.query('SELECT id, comment, bookmark_id from comments')
+      rs = DatabaseConnection.query("SELECT id, comment, bookmark_id from comments WHERE bookmark_id = '#{bookmark_id}'")
       rs.each do |row|
         comments << Comment.new(id: row["id"], comment: row["comment"], bookmark_id: row["bookmark_id"])
       end
     comments
+  end
+
+  def self.return_bookmarks_and_comments
+    bookmarks_and_comments = []
+    bookmarks = return_bookmarks
+    bookmarks.each do |bookmark|
+      comments = Array.new
+      comments = return_comments(bookmark.id)
+      bookmarks_and_comments << [bookmark, comments]
+    end
+    bookmarks_and_comments
   end
 end

@@ -1,0 +1,42 @@
+<html>
+<style>
+  table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+    background-color: #ffdab9;
+  }
+</style>
+
+<h1> List of Bookmarks and Comments </h1>
+<h2 style='color:Tomato;'><%=@screen_message%></h2>
+  <table border="1" >
+    <tr>
+      <th>Title</th>
+      <th>URL</th>
+      <th>Delete</th>
+      <th>Update</th>
+    </tr>
+    <% @bookmarks.each do |bookmark| %>
+    <tr>
+      <td> <%= bookmark[0].title %></td>
+      <td>
+        <a href="<%= bookmark[0].url %>"><%= bookmark[0].url%></a>
+        <% bookmark[1].each do |comment| %>
+          </br><li> <%= comment.comment %>
+        <% end %>
+      </td>
+      <form action='/deletebookmark' method='post'>
+        <td> <button type='submit' value='<%= bookmark[0].id%>' name='DeleteURL'>Delete</button>
+      </form>
+      <form action='/updatebookmark' method='get'>
+        <td> <button type='submit' value='<%= bookmark[0].id%>' name='UpdateURL'>Update</button>
+      </form>
+    </tr>
+    <% end %>
+  </table>
+</br>
+
+<form action='/bookmarks/new'>
+  <input type='submit' value='Create Bookmark'>
+</form>
+</html>

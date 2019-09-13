@@ -14,6 +14,12 @@ class Bookmark_app < Sinatra::Base
     erb :bookmarks
   end
 
+  get '/bookmarksAndComments' do
+    @screen_message = params[:message]
+    @bookmarks = Bookmark_Manager.return_bookmarks_and_comments
+    erb :bookmarksAndComments
+  end
+
   get '/bookmarks/new' do
     erb :createbookmark
   end
