@@ -31,8 +31,12 @@ class Bookmark_app < Sinatra::Base
   end
 
   post '/deletebookmark' do
-    Bookmark_Manager.delete_bookmark(params["DeleteURL"])
-    message = "Bookmark deleted"
+    result = Bookmark_Manager.delete_bookmark(params["DeleteURL"])
+    if result
+      message = "Bookmark deleted"
+    else
+      message = "Bookmark not deleted"
+    end
     redirect "/bookmarks?message=#{message}"
   end
 

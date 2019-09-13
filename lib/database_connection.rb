@@ -6,13 +6,13 @@ class DatabaseConnection
   def self.connection
     @con
   end
-  
+
   def self.query(sql)
     begin
       rs = @con.exec sql
-      p rs
     rescue PG::Error => e
       puts e.message
+      false
     end
   end
 end
